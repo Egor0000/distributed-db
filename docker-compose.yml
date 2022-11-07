@@ -1,0 +1,21 @@
+services:
+  server1:
+    build:
+      context: .
+      dockerfile: ./Dockerfile2
+    environment:
+      - PORT=1111
+      - ADDRESS=localhost
+      - TCP_PORT=1115
+    restart: on-failure
+    network_mode: "host"
+  server2:
+    build:
+      context: .
+      dockerfile: ./Dockerfile2
+    environment:
+      - PORT=4444
+      - ADDRESS=localhost
+      - TCP_PORT=4445
+    restart: on-failure
+    network_mode: "host"

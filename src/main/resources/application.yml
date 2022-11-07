@@ -1,0 +1,6 @@
+server:
+  address: ${ADDRESS:0.0.0.0}
+  port: ${PORT:1111}
+
+tcp-server:
+  port: ${TCP_PORT:1115}
