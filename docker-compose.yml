@@ -5,17 +5,54 @@ services:
       dockerfile: ./Dockerfile2
     environment:
       - PORT=1111
-      - ADDRESS=localhost
+      - ADDRESS=0.0.0.0
       - TCP_PORT=1115
+      - NAME=distributed-db-server1-1
     restart: on-failure
-    network_mode: "host"
+#    network_mode: "host"
+    ports:
+      - 1111:1111
+    networks:
+      - distrb
+
   server2:
     build:
       context: .
       dockerfile: ./Dockerfile2
     environment:
       - PORT=4444
-      - ADDRESS=localhost
+      - ADDRESS=0.0.0.0
       - TCP_PORT=4445
+      - NAME=distributed-db-server2-1
     restart: on-failure
-    network_mode: "host"
+#    network_mode: "host"
+    expose:
+      - 4445
+    ports:
+      - 4444:4444
+      - 4445:4445
+    networks:
+      - distrb
+
+  server3:
+    build:
+      context: .
+      dockerfile: ./Dockerfile2
+    environment:
+      - PORT=5555
+      - ADDRESS=0.0.0.0
+      - TCP_PORT=3335
+      - NAME=distributed-db-server3-1
+    restart: on-failure
+    #    network_mode: "host"
+    expose:
+      - 3335
+    ports:
+      - 5555:5555
+      - 3335:3335
+    networks:
+      - distrb
+
+networks:
+  distrb:
+    driver: bridge

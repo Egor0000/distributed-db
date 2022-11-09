@@ -1,6 +1,17 @@
 server:
   address: ${ADDRESS:0.0.0.0}
-  port: ${PORT:1111}
+  port: ${PORT:7875}
+
+data:
+  id: ${SERVER_ID:1}
+  left: ${LEFT_ID:2}
+  right: ${RIGHT_ID:3}
+
+# Temporary until async ring is done
+leader: ${LEADER:1}
+serverss: distributed-db-server2-1:4445,distributed-db-server1-1:1115,distributed-db-server3-1:3335
+
+name: ${NAME:distributed-db-server1-1}
 
 tcp-server:
   port: ${TCP_PORT:1115}
