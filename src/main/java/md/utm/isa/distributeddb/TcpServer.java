@@ -1,5 +1,6 @@
 package md.utm.isa.distributeddb;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
@@ -13,6 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Slf4j
 public class TcpServer {
     private final String port;
     private final DatabaseService databaseService;
@@ -44,7 +46,11 @@ public class TcpServer {
 
                 InputStream input = socket.getInputStream();
 
-                databaseService.saveToDb((Entity) SerializationUtils.deserialize(input.readAllBytes()));
+                try {
+                    databaseService.saveToDb((Entity) SerializationUtils.deserialize(input.readAllBytes()));
+                } catch (Exception ex) {
+
+                }
             }
 
         } catch (Exception ex) {

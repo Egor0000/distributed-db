@@ -9,9 +9,13 @@ data:
 
 # Temporary until async ring is done
 leader: ${LEADER:1}
-serverss: distributed-db-server2-1:4445,distributed-db-server1-1:1115,distributed-db-server3-1:3335
+serverss: distributed-db-server1-1:1115,distributed-db-server2-1:4445,distributed-db-server3-1:3335
+servers-http: distributed-db-server1-1:1111,distributed-db-server2-1:4444,distributed-db-server3-1:3333
+servers-udp: distributed-db-server1-1:1116,distributed-db-server2-1:4446,distributed-db-server3-1:1116
 
 name: ${NAME:distributed-db-server1-1}
 
 tcp-server:
   port: ${TCP_PORT:1115}
+udp-server:
+  port: ${UDP_PORT:1116}

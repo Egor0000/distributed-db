@@ -19,6 +19,11 @@ public class ServerController {
         return service.read(key);
     }
 
+    @PutMapping("/")
+    String update(@RequestBody Entity entity) {
+        return service.update(entity);
+    }
+
     @DeleteMapping("/")
     void delete(@RequestParam String key) {
         service.delete(key);
