@@ -30,6 +30,7 @@ public class UdpClient {
         try {
             if (id.equals(leader)) {
                 clientSocket = new DatagramSocket();
+                clientSocket.setSoTimeout(1000);
                 new Thread(this::send).start();
             }
         } catch (SocketException ex) {
@@ -41,6 +42,11 @@ public class UdpClient {
     }
 
     public void send() {
+        try {
+            Thread.sleep(3000);
+        } catch (Exception ex) {
+
+        }
         while (true) {
             try {
                 String dateText = new Date().toString();
@@ -49,26 +55,17 @@ public class UdpClient {
 
                 InetAddress group = InetAddress.getByName("224.0.0.0");
                 DatagramPacket packet;
-                packet = new DatagramPacket(buffer, buffer.length, group, 8888);
+                packet = new DatagramPacket(buffer, buffer.length, group, 8003);
                 clientSocket.send(packet);
                 packet = new DatagramPacket(buffer, buffer.length);
                 clientSocket.receive(packet);
                 String received = new String(
                         packet.getData(), 0, packet.getLength());
                 if (received != null) {
-                    log.info("Add {} to {}", System.currentTimeMillis(), Integer.parseInt(received));
-                    ServerHeathcheck.healthCehckTimer.set(Integer.parseInt(received), System.currentTimeMillis());
-                    log.info("{}", ServerHeathcheck.healthCehckTimer);
+                    ServerHealthcheck.serverHealthcheck.put("server" + received, System.currentTimeMillis());
                 }
-                log.info("Response from {}", received);
             } catch (Exception ex) {
-                log.error("Error while sending udp packets", ex);
-            }
-
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ex) {
-                // Handle exception
+//                log.error("Error while sending udp packets", ex);
             }
         }
     }
