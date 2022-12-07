@@ -8,8 +8,9 @@ services:
       - ADDRESS=0.0.0.0
       - TCP_PORT=1115
       - NAME=distributed-db-server1-1
+      - SERVER_ID=1
     restart: on-failure
-#    network_mode: "host"
+    #    network_mode: "host"
     ports:
       - 1111:1111
     networks:
@@ -24,8 +25,9 @@ services:
       - ADDRESS=0.0.0.0
       - TCP_PORT=4445
       - NAME=distributed-db-server2-1
+      - SERVER_ID=2
     restart: on-failure
-#    network_mode: "host"
+    #    network_mode: "host"
     expose:
       - 4445
     ports:
@@ -39,16 +41,17 @@ services:
       context: .
       dockerfile: ./Dockerfile2
     environment:
-      - PORT=5555
+      - PORT=3333
       - ADDRESS=0.0.0.0
       - TCP_PORT=3335
       - NAME=distributed-db-server3-1
+      - SERVER_ID=3
     restart: on-failure
     #    network_mode: "host"
     expose:
       - 3335
     ports:
-      - 5555:5555
+      - 3333:3333
       - 3335:3335
     networks:
       - distrb
