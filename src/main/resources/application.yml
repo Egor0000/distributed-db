@@ -14,6 +14,7 @@ servers-http: distributed-db-server1-1:1111,distributed-db-server2-1:4444,distri
 servers-udp: distributed-db-server1-1:1116,distributed-db-server2-1:4446,distributed-db-server3-1:1116
 
 name: ${NAME:distributed-db-server1-1}
+gateway: ${GATEWAY:localhost}
 
 tcp-server:
   port: ${TCP_PORT:1115}

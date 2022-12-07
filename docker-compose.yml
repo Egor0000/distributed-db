@@ -9,6 +9,7 @@ services:
       - TCP_PORT=1115
       - NAME=distributed-db-server1-1
       - SERVER_ID=1
+      - GATEWAY
     restart: on-failure
     #    network_mode: "host"
     ports:
@@ -26,6 +27,7 @@ services:
       - TCP_PORT=4445
       - NAME=distributed-db-server2-1
       - SERVER_ID=2
+      - GATEWAY
     restart: on-failure
     #    network_mode: "host"
     expose:
@@ -46,6 +48,7 @@ services:
       - TCP_PORT=3335
       - NAME=distributed-db-server3-1
       - SERVER_ID=3
+      - GATEWAY
     restart: on-failure
     #    network_mode: "host"
     expose:
@@ -59,3 +62,8 @@ services:
 networks:
   distrb:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.0.0/24
+          gateway: "${GATEWAY}"

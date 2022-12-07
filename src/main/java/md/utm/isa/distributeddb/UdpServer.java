@@ -31,11 +31,10 @@ public class UdpServer {
 
         public Server() {
             try {
-                socket = new MulticastSocket(8888);
+                socket = new MulticastSocket(8003);
                 InetAddress group =
                         InetAddress.getByName("224.0.0.0");
-                socket.joinGroup(new InetSocketAddress(group, 8888), NetworkInterface.getByName("docker0"));
-                log.info("Started udp server on port {}", udpServerPort);
+                socket.joinGroup(new InetSocketAddress(group, 8003), NetworkInterface.getByName("docker0"));
             } catch (Exception ex) {
                 log.error("Failed to start udp server on port {}", udpServerPort, ex);
             }
@@ -53,7 +52,6 @@ public class UdpServer {
                     packet = new DatagramPacket(buf, buf.length, address, port);
                     String received  = new String(packet.getData(), 0, packet.getLength());
 
-                    log.info("Received {}", received);
                     if (received.equals("end")) {
                         running = false;
                         continue;
